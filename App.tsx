@@ -5,7 +5,8 @@ import { Center, NativeBaseProvider, Text, StatusBar  } from 'native-base';
 import { THEME } from './src/styles/theme';
 
 import { Loading } from './src/components/Loading/loading';
-import { SingIn } from './src/components/SingIn/singin';
+import { SingIn } from './src/screens/SingIn/singin';
+import { AuthContextProvider } from './src/contexts/authContexts';
 
 export default function App() {
     const [fontsLoad] = useFonts({Roboto_700Bold, Roboto_400Regular, Roboto_500Medium})
@@ -13,18 +14,20 @@ export default function App() {
 
   return (
     <NativeBaseProvider  theme={THEME} >
-      <Center bg='gray.900' flex={1}>
-        {
-          fontsLoad ? <SingIn/> : <Loading></Loading>
-        }
+      <AuthContextProvider>
+
+          {
+            fontsLoad ? <SingIn/> : <Loading></Loading>
+          }
+          
         
-      
-      </Center>
-      <StatusBar
-      barStyle='light-content'
-      backgroundColor='transparent'
-      translucent
-      />
+
+        <StatusBar
+        barStyle='light-content'
+        backgroundColor='transparent'
+        translucent
+        />
+      </AuthContextProvider>
       
     </NativeBaseProvider>
   );
